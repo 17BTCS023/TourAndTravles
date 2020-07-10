@@ -1,9 +1,13 @@
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 import 'Constant/Constant.dart';
+import 'Screen/Faqs.dart';
+import 'Screen/HelpAndSupport.dart';
+import 'Screen/MyProfilePage.dart';
+import 'Screen/MyTrips.dart';
+import 'Screen/Settings.dart';
 
 void main() {
   runApp(MyApp());
@@ -77,13 +81,14 @@ class MyAccountScreen extends StatelessWidget {
                 MyAccountOptions(
                   icon: LineAwesomeIcons.user,
                   option: 'My Profile',
+//                  moveTo: 'MyProfilePage',
                 ),
                 MyAccountOptions(
                   icon: LineAwesomeIcons.telegram_plane,
                   option: 'My Trips',
                 ),
                 MyAccountOptions(
-                  icon: LineAwesomeIcons.alternate_medical_chat,
+                  icon: LineAwesomeIcons.rocket_chat,
                   option: 'FAQs',
                 ),
                 MyAccountOptions(
@@ -122,43 +127,74 @@ class MyAccountOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      height: SizeUnit * 4.5,
-      margin: EdgeInsets.symmetric(
-        horizontal: SizeUnit.w * 5,
-      ).copyWith(
-        bottom: SizeUnit.w * 2,
-      ),
-      padding: EdgeInsets.symmetric(
-        horizontal: SizeUnit.w * 2,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(SizeUnit.w * 4),
-        color: Theme.of(context).backgroundColor,
-      ),
-      child: Row(
-        children: <Widget>[
-          Icon(
-            this.icon,
-            size: SizeUnit.w * 2.5,
-          ),
-          SizedBox(width: SizeUnit.w * 1.5),
-          Text(
-            this.option,
-            style: TitleText.copyWith(
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          Spacer(),
-          if (this.hasNavigation)
+    return FlatButton(
+      color: Colors.white,
+      child: Container(
+        alignment: Alignment.center,
+        height: SizeUnit * 4.5,
+        margin: EdgeInsets.symmetric(
+          horizontal: SizeUnit.w * 2,
+        ).copyWith(
+          bottom: SizeUnit.w * 2,
+        ),
+        padding: EdgeInsets.symmetric(
+          horizontal: SizeUnit.w * 2,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SizeUnit.w * 4),
+          color: Theme.of(context).backgroundColor,
+        ),
+        child: Row(
+          children: <Widget>[
             Icon(
-              LineAwesomeIcons.angle_right,
+              this.icon,
               size: SizeUnit.w * 2.5,
             ),
-        ],
+            SizedBox(width: SizeUnit.w * 1.5),
+            Text(
+              this.option,
+              style: TitleText.copyWith(
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            Spacer(),
+            if (this.hasNavigation)
+              Icon(
+                LineAwesomeIcons.angle_right,
+                size: SizeUnit.w * 2.5,
+              ),
+          ],
+        ),
       ),
+      onPressed:  (){
+        switch(option){
+          case 'My Profile':
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MyProfilePage()));
+            break;
+          case 'My Trips':
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MyTrips()));
+            break;
+          case 'FAQs':
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Faqs()));
+            break;
+          case 'Help & Support':
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => HelpAndSupport()));
+            break;
+          case 'Settings':
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Settings()));
+            break;
+          case 'Logout':
+            print('Logout pressed');
+            break;
+        };
+      },
     );
   }
 }
+
 
